@@ -245,6 +245,8 @@ namespace WebApis.Services
             {
                 var passwordByte = Encoding.UTF8.GetBytes(model.Password);
                 model.Password = Convert.ToBase64String(passwordByte);
+                model.User_Id = (int.Parse(_context.Users.Max(i => i.User_Id) ?? "0") + 1).ToString().PadLeft(4, '0');
+
                 _context.Users.Add(model);
                 await _context.SaveChangesAsync();
             }
@@ -270,8 +272,6 @@ namespace WebApis.Services
                 data.Gender = model.Gender;
                 data.Email = model.Email;
                 data.Date_Of_Birth = model.Date_Of_Birth;
-                data.Password = model.Password;
-                data.Role_Id = model.Role_Id;
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -362,7 +362,7 @@ namespace WebApis.Services
                 gender = i.Gender,
                 email = i.Email,
                 password = i.Password,
-                date_of_birth = i.Date_Of_Birth
+                date_of_birth = i.Date_Of_Birth.ToString("yyyy-MM-dd")
             });
 
             UserDTO user = new() {

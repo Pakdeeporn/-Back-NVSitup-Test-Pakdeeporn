@@ -17,6 +17,6 @@
         public string gender { get; set; }
         public string email { get; set; }
         public string password { get; set; }
-        public DateTime date_of_birth { get; set; }
+        public string date_of_birth { get; set; }
     }
 }
